@@ -1,3 +1,5 @@
 django
 djangorestframework
 python-decouple
+django-phonenumber-field
+django-phonenumbers
