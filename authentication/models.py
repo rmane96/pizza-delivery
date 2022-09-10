@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
@@ -32,10 +33,15 @@ class User(AbstractUser):
     
     username = models.CharField(max_length=25,unique=True)
     email = models.EmailField(max_length=80,unique=True)
-    phone_number = PhoneNumberField(null=False,unique=True)
-    
+    phone_number = PhoneNumberField(
+        null=False,
+        blank=False,
+        unique=True,
+        verbose_name='Phone Number')
+        
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['username','phone_number']
+    objects = UserManager()
     
     def __str__(self) -> str:
         return f'{self.email}'

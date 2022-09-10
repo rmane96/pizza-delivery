@@ -3,3 +3,5 @@ djangorestframework
 python-decouple
 django-phonenumber-field
 django-phonenumbers
+djangorestframework-simplejwt
+djoser
