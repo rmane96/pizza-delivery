@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'phonenumber_field',
     'djoser',
+    #swagger ui
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
