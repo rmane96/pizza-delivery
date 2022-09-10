@@ -31,3 +31,15 @@ class UserCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Phone number exists')
         
         return super().validate(attrs) 
+    
+    def create(self,validated_data):
+        user=User.objects.create(
+            username = validated_data['username'],
+            email = validated_data['email'],
+            phone_number = validated_data['phone_number'],
+        )
+        
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+        

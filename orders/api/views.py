@@ -4,16 +4,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import OrderCreateSerializer , OrderDetailSerializer, OrderStatusUpdateSerializer
 from orders.models import Order
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
+
 
 User=get_user_model()
 
 class OrderListView(generics.GenericAPIView):
     serializer_class = OrderCreateSerializer
     queryset = Order.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     def get(self,request):
         orders = Order.objects.all()
@@ -33,7 +34,7 @@ class OrderListView(generics.GenericAPIView):
 
 class OrderDetailView(generics.GenericAPIView):
     serializer_class = OrderDetailSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     
     def get(self,request,order_id):
         
@@ -62,6 +63,7 @@ class OrderDetailView(generics.GenericAPIView):
     
 class OrderStatusUpdate(generics.GenericAPIView):
     serializer_class = OrderStatusUpdateSerializer
+    permission_classes = [IsAdminUser]
          
     def put(self,request,order_id):
    
